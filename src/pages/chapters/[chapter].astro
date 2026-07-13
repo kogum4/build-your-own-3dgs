@@ -1,0 +1,40 @@
+---
+import { getCollection, render } from 'astro:content';
+import ChapterLayout from '../../layouts/ChapterLayout.astro';
+import { publishedChapters } from '../../data/chapters';
+
+export async function getStaticPaths() {
+  const jaEntries = await getCollection('chapters', (e) => e.data.lang === 'ja');
+  return publishedChapters.map((ch) => {
+    const entry = jaEntries.find((e) => e.data.chapter === ch.number);
+    if (!entry) {
+      throw new Error(
+        `第${ch.number}章は published ですが ja コンテンツがありません。pnpm import:content を実行してください。`,
+      );
+    }
+    return { params: { chapter: ch.slug }, props: { entry } };
+  });
+}
+
+const { chapter } = Astro.params;
+const { entry } = Astro.props;
+const { Content, headings } = await render(entry);
+
+// en 側は全 published 章のページが存在する (翻訳 or フォールバック) ので常に対で出す
+const alternates = [
+  { lang: 'ja' as const, path: `${import.meta.env.BASE_URL.replace(/\/+$/, '')}/chapters/${chapter}/` },
+  { lang: 'en' as const, path: `${import.meta.env.BASE_URL.replace(/\/+$/, '')}/en/chapters/${chapter}/` },
+];
+---
+
+<ChapterLayout
+  lang="ja"
+  slug={chapter}
+  chapterNumber={entry.data.chapter}
+  title={entry.data.title}
+  description={entry.data.description}
+  {headings}
+  {alternates}
+>
+  <Content />
+</ChapterLayout>

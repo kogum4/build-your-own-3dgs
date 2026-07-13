@@ -1,0 +1,33 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { useTranslations, localizePath } from '../i18n/utils';
+
+const lang = 'ja';
+const t = useTranslations(lang);
+---
+
+<BaseLayout title={`404 | ${t('site.title')}`} description={t('notfound.body')} {lang}>
+  <main id="main" class="notfound">
+    <p class="code">404</p>
+    <h1>{t('notfound.title')} / Page not found</h1>
+    <p>{t('notfound.body')}</p>
+    <a class="btn btn-primary" href={localizePath('/', lang)}>{t('notfound.back')}</a>
+  </main>
+</BaseLayout>
+
+<style>
+  .notfound {
+    max-width: 560px;
+    margin: 0 auto;
+    padding: 80px 20px;
+    text-align: center;
+  }
+
+  .code {
+    margin: 0;
+    font-family: var(--font-mono);
+    font-size: 4rem;
+    font-weight: 700;
+    color: var(--faint);
+  }
+</style>

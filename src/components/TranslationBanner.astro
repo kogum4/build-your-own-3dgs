@@ -1,0 +1,35 @@
+---
+import type { Lang } from '../i18n/ui';
+import { useTranslations, localizePath } from '../i18n/utils';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<aside class="translation-banner" role="note">
+  <p>
+    <strong>{t('translation.banner.title')}</strong>
+    {t('translation.banner.body')}
+    <a href={localizePath('/chapters/01/', lang)}>{t('translation.banner.link')}</a>
+  </p>
+</aside>
+
+<style>
+  .translation-banner {
+    margin-bottom: 28px;
+    padding: 12px 18px;
+    border: 1px solid var(--warn);
+    border-left-width: 4px;
+    border-radius: var(--radius-sm);
+    background: var(--warn-soft);
+    font-size: var(--text-sm);
+  }
+
+  .translation-banner p {
+    margin: 0;
+  }
+</style>

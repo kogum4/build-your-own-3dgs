@@ -1,0 +1,113 @@
+---
+import type { MarkdownHeading } from 'astro';
+import BaseLayout from './BaseLayout.astro';
+import Sidebar from '../components/Sidebar.astro';
+import TOC from '../components/TOC.astro';
+import PrevNext from '../components/PrevNext.astro';
+import TranslationBanner from '../components/TranslationBanner.astro';
+import type { Lang } from '../i18n/ui';
+import { useTranslations } from '../i18n/utils';
+import 'katex/dist/katex.min.css';
+import '../styles/chapter.css';
+
+interface Props {
+  lang: Lang;
+  slug: string;
+  chapterNumber: number;
+  title: string;
+  description: string;
+  headings: MarkdownHeading[];
+  /** en フォールバック (ja 本文を表示) のとき true */
+  fallback?: boolean;
+  canonicalPath?: string;
+  alternates?: { lang: Lang; path: string }[];
+}
+
+const { lang, slug, chapterNumber, title, description, headings, fallback, canonicalPath, alternates } =
+  Astro.props;
+const t = useTranslations(lang);
+const pageTitle = `${t('chapter.label', { n: chapterNumber })}: ${title} | Build Your Own 3DGS`;
+---
+
+<BaseLayout title={pageTitle} {description} {lang} {canonicalPath} {alternates}>
+  <div class="chapter-shell">
+    <aside class="shell-sidebar">
+      <Sidebar {lang} currentSlug={slug} />
+    </aside>
+
+    <main id="main" class="shell-main" data-chapter={slug}>
+      {fallback && <TranslationBanner {lang} />}
+      <p class="chapter-eyebrow">{t('chapter.label', { n: chapterNumber })}</p>
+      <h1 class="chapter-title">{title}</h1>
+      <article class="chapter-prose">
+        <slot />
+      </article>
+      <PrevNext {lang} currentSlug={slug} />
+    </main>
+
+    <aside class="shell-toc">
+      <TOC {lang} {headings} />
+    </aside>
+  </div>
+</BaseLayout>
+
+<script>
+  import '../client/entry';
+</script>
+
+<style>
+  .chapter-shell {
+    display: grid;
+    grid-template-columns: var(--sidebar-width) minmax(0, var(--content-width)) var(--toc-width);
+    justify-content: center;
+    gap: 40px;
+    max-width: 1360px;
+    margin: 0 auto;
+    padding: 32px 20px 64px;
+  }
+
+  .shell-sidebar,
+  .shell-toc {
+    position: sticky;
+    top: calc(var(--header-height) + 24px);
+    align-self: start;
+    max-height: calc(100vh - var(--header-height) - 48px);
+    overflow-y: auto;
+    scrollbar-width: thin;
+  }
+
+  .chapter-eyebrow {
+    margin: 0 0 4px;
+    color: var(--accent);
+    font-size: var(--text-sm);
+    font-weight: 700;
+    letter-spacing: 0.04em;
+  }
+
+  .chapter-title {
+    margin: 0 0 28px;
+    font-size: var(--text-3xl);
+    font-weight: 800;
+  }
+
+  @media (max-width: 1200px) {
+    .chapter-shell {
+      grid-template-columns: var(--sidebar-width) minmax(0, 1fr);
+    }
+
+    .shell-toc {
+      display: none;
+    }
+  }
+
+  @media (max-width: 960px) {
+    .chapter-shell {
+      display: block;
+    }
+
+    .shell-sidebar {
+      position: static;
+      max-height: none;
+    }
+  }
+</style>

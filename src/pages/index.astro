@@ -1,0 +1,22 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Landing from '../components/Landing.astro';
+import { useTranslations } from '../i18n/utils';
+
+const lang = 'ja';
+const t = useTranslations(lang);
+const base = import.meta.env.BASE_URL.replace(/\/+$/, '');
+---
+
+<BaseLayout
+  title={`${t('site.title')} — ${t('site.tagline')}`}
+  description={t('site.description')}
+  {lang}
+  ogType="website"
+  alternates={[
+    { lang: 'ja', path: `${base}/` },
+    { lang: 'en', path: `${base}/en/` },
+  ]}
+>
+  <Landing {lang} />
+</BaseLayout>

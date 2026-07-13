@@ -1,0 +1,44 @@
+---
+import type { Lang } from '../i18n/ui';
+import { useTranslations } from '../i18n/utils';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const repoUrl = 'https://github.com/kogum4/build-your-own-3dgs';
+---
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <p>
+      <strong>Build Your Own 3D Gaussian Splatting</strong> — {t('site.tagline')}
+    </p>
+    <p class="footer-meta">
+      {t('footer.builtWith')}
+      <a href={repoUrl} target="_blank" rel="noopener">GitHub</a>
+    </p>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    margin-top: 64px;
+    padding: 32px 20px 40px;
+    border-top: 1px solid var(--border-subtle);
+    background: var(--bg-subtle);
+    color: var(--muted);
+    font-size: var(--text-sm);
+  }
+
+  .footer-inner {
+    max-width: 1360px;
+    margin: 0 auto;
+  }
+
+  .footer-inner p {
+    margin: 4px 0;
+  }
+</style>

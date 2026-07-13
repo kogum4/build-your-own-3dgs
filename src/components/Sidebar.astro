@@ -1,0 +1,160 @@
+---
+import { chapterList } from '../data/chapters';
+import type { Lang } from '../i18n/ui';
+import { useTranslations, localizePath } from '../i18n/utils';
+
+interface Props {
+  lang: Lang;
+  currentSlug?: string;
+}
+
+const { lang, currentSlug } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<nav class="sidebar" aria-label={t('nav.chapters')}>
+  <details class="sidebar-details">
+    <summary class="sidebar-summary">{t('nav.chapters')}</summary>
+    <ol class="chapter-list">
+      {
+        chapterList.map((ch) =>
+          ch.status === 'published' ? (
+            <li>
+              <a
+                class:list={['chapter-link', { current: ch.slug === currentSlug }]}
+                href={localizePath(`/chapters/${ch.slug}/`, lang)}
+                aria-current={ch.slug === currentSlug ? 'page' : undefined}
+              >
+                <span class="ch-num">{ch.number}</span>
+                <span class="ch-title">{ch.title[lang]}</span>
+              </a>
+            </li>
+          ) : (
+            <li>
+              <span class="chapter-link coming-soon">
+                <span class="ch-num">{ch.number}</span>
+                <span class="ch-title">
+                  {ch.title[lang]}
+                  <span class="soon-badge">{t('chapter.comingSoon')}</span>
+                </span>
+              </span>
+            </li>
+          ),
+        )
+      }
+    </ol>
+  </details>
+</nav>
+
+<style>
+  .sidebar {
+    font-size: var(--text-sm);
+  }
+
+  .sidebar-summary {
+    display: none;
+  }
+
+  .chapter-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .chapter-link {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    padding: 7px 12px;
+    border-radius: var(--radius-sm);
+    color: var(--fg);
+    line-height: 1.4;
+  }
+
+  .chapter-link:hover {
+    background: var(--bg-subtle);
+    text-decoration: none;
+  }
+
+  .chapter-link.current {
+    background: var(--accent-soft);
+    color: var(--accent-strong);
+    font-weight: 600;
+  }
+
+  .ch-num {
+    flex: none;
+    width: 1.6em;
+    color: var(--faint);
+    font-variant-numeric: tabular-nums;
+    font-size: var(--text-xs);
+    text-align: right;
+  }
+
+  .chapter-link.current .ch-num {
+    color: var(--accent-strong);
+  }
+
+  .coming-soon {
+    color: var(--faint);
+    cursor: default;
+  }
+
+  .coming-soon:hover {
+    background: none;
+  }
+
+  .soon-badge {
+    display: inline-block;
+    margin-left: 6px;
+    padding: 1px 7px;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    font-size: 0.65rem;
+    letter-spacing: 0.03em;
+    color: var(--faint);
+    white-space: nowrap;
+  }
+
+  /* デスクトップでは details を常時開いた見た目に */
+  @media (min-width: 961px) {
+    .sidebar-details {
+      display: contents;
+    }
+  }
+
+  /* モバイルでは折りたたみメニュー */
+  @media (max-width: 960px) {
+    .sidebar {
+      margin-bottom: 20px;
+    }
+
+    .sidebar-details {
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      background: var(--bg);
+    }
+
+    .sidebar-details[open] {
+      padding-bottom: 8px;
+    }
+
+    .sidebar-summary {
+      display: block;
+      padding: 10px 14px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+  }
+</style>
+
+<script>
+  // デスクトップでは details を強制的に開く (CSS の display:contents と併用)
+  const mq = window.matchMedia('(min-width: 961px)');
+  const details = document.querySelectorAll<HTMLDetailsElement>('.sidebar-details');
+  const sync = () => {
+    if (mq.matches) details.forEach((d) => (d.open = true));
+  };
+  sync();
+  mq.addEventListener('change', sync);
+</script>

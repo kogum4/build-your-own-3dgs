@@ -1,0 +1,43 @@
+{
+  "name": "build-your-own-3dgs",
+  "version": "0.1.0",
+  "description": "Build Your Own 3D Gaussian Splatting — interactive web textbook",
+  "type": "module",
+  "private": true,
+  "packageManager": "pnpm@10.18.0",
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild",
+      "sharp"
+    ]
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check",
+    "import:content": "node scripts/import-content.mjs"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "^3.4.0",
+    "@codemirror/commands": "^6.8.0",
+    "@codemirror/lang-python": "^6.2.0",
+    "@codemirror/language": "^6.11.0",
+    "@codemirror/state": "^6.5.0",
+    "@codemirror/view": "^6.36.0",
+    "astro": "^5.12.0",
+    "katex": "^0.16.21",
+    "rehype-katex": "^7.0.1",
+    "remark-directive": "^3.0.1",
+    "remark-math": "^6.0.0",
+    "unist-util-visit": "^5.0.0"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.4",
+    "fast-glob": "^3.3.3",
+    "playwright": "^1.61.1",
+    "pyodide": "^0.27.2",
+    "sharp": "^0.35.3",
+    "typescript": "^5.7.0"
+  }
+}

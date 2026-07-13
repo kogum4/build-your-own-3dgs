@@ -1,0 +1,10 @@
+import { chromium } from 'playwright';
+const browser = await chromium.launch({ channel: 'msedge', headless: true });
+const page = await browser.newPage({ viewport: { width: 375, height: 812 } });
+await page.goto('http://localhost:4321/build-your-own-3dgs/', { waitUntil: 'networkidle' });
+await page.screenshot({ path: 'screenshots/mobile-landing.png' });
+await page.goto('http://localhost:4321/build-your-own-3dgs/chapters/01/', { waitUntil: 'domcontentloaded' });
+await page.waitForTimeout(1200);
+await page.screenshot({ path: 'screenshots/mobile-chapter.png' });
+await browser.close();
+console.log('done');

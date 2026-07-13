@@ -1,0 +1,93 @@
+---
+import { getPrevNext } from '../data/chapters';
+import type { Lang } from '../i18n/ui';
+import { useTranslations, localizePath } from '../i18n/utils';
+
+interface Props {
+  lang: Lang;
+  currentSlug: string;
+}
+
+const { lang, currentSlug } = Astro.props;
+const t = useTranslations(lang);
+const { prev, next } = getPrevNext(currentSlug);
+---
+
+<nav class="prev-next" aria-label="Chapter navigation">
+  {
+    prev ? (
+      <a class="pn-card prev" href={localizePath(`/chapters/${prev.slug}/`, lang)} rel="prev">
+        <span class="pn-label">← {t('chapter.prev')}</span>
+        <span class="pn-title">
+          {t('chapter.label', { n: prev.number })}: {prev.title[lang]}
+        </span>
+      </a>
+    ) : (
+      <span class="pn-spacer" />
+    )
+  }
+  {
+    next ? (
+      <a class="pn-card next" href={localizePath(`/chapters/${next.slug}/`, lang)} rel="next">
+        <span class="pn-label">{t('chapter.next')} →</span>
+        <span class="pn-title">
+          {t('chapter.label', { n: next.number })}: {next.title[lang]}
+        </span>
+      </a>
+    ) : (
+      <span class="pn-spacer" />
+    )
+  }
+</nav>
+
+<style>
+  .prev-next {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-top: 48px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border-subtle);
+  }
+
+  .pn-card {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 14px 18px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    color: var(--fg);
+    box-shadow: var(--shadow-card);
+  }
+
+  .pn-card:hover {
+    border-color: var(--accent);
+    text-decoration: none;
+    box-shadow: var(--shadow-card-hover);
+  }
+
+  .pn-card.next {
+    text-align: right;
+  }
+
+  .pn-label {
+    color: var(--muted);
+    font-size: var(--text-xs);
+  }
+
+  .pn-title {
+    font-size: var(--text-sm);
+    font-weight: 600;
+  }
+
+  @media (max-width: 640px) {
+    .prev-next {
+      grid-template-columns: 1fr;
+    }
+
+    .pn-card.next {
+      text-align: left;
+    }
+  }
+</style>

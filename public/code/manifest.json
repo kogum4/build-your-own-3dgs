@@ -1,0 +1,88 @@
+{
+  "chapters": {
+    "01": [
+      "draw_gaussians.py",
+      "gaussian2d.py",
+      "render.py",
+      "test.py"
+    ],
+    "02": [
+      "compare_renders.py",
+      "gaussian2d.py",
+      "render.py",
+      "test.py"
+    ],
+    "03": [
+      "autograd.py",
+      "gaussian2d.py",
+      "gradient_descent.py",
+      "render.py",
+      "test.py"
+    ],
+    "04": [
+      "autograd.py",
+      "gaussian2d.py",
+      "render.py",
+      "test.py"
+    ],
+    "05": [
+      "autograd.py",
+      "fit_image.py",
+      "gaussian2d.py",
+      "loss.py",
+      "optim.py",
+      "render.py",
+      "test.py"
+    ],
+    "06": [
+      "autograd.py",
+      "build_3d_gaussian.py",
+      "gaussian2d.py",
+      "gaussian3d.py",
+      "loss.py",
+      "optim.py",
+      "render.py",
+      "test.py"
+    ],
+    "07": [
+      "autograd.py",
+      "camera.py",
+      "gaussian2d.py",
+      "gaussian3d.py",
+      "loss.py",
+      "optim.py",
+      "project_cube.py",
+      "render.py",
+      "test.py"
+    ],
+    "08": [
+      "autograd.py",
+      "camera.py",
+      "ewa_demo.py",
+      "gaussian2d.py",
+      "gaussian3d.py",
+      "loss.py",
+      "optim.py",
+      "projection.py",
+      "render.py",
+      "test.py"
+    ],
+    "09": [
+      "autograd.py",
+      "camera.py",
+      "data_loader.py",
+      "experiment_novel_view.py",
+      "gaussian2d.py",
+      "gaussian3d.py",
+      "initialization.py",
+      "loss.py",
+      "optim.py",
+      "projection.py",
+      "render.py",
+      "test.py",
+      "trainer.py",
+      "train_garden.py"
+    ]
+  },
+  "common": []
+}

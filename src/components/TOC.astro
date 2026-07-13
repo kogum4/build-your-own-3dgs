@@ -1,0 +1,101 @@
+---
+import type { MarkdownHeading } from 'astro';
+import type { Lang } from '../i18n/ui';
+import { useTranslations } from '../i18n/utils';
+
+interface Props {
+  lang: Lang;
+  headings: MarkdownHeading[];
+}
+
+const { lang, headings } = Astro.props;
+const t = useTranslations(lang);
+const items = headings.filter((h) => h.depth >= 2 && h.depth <= 3);
+---
+
+{
+  items.length > 0 && (
+    <nav class="toc" aria-label={t('chapter.toc')}>
+      <p class="toc-title">{t('chapter.toc')}</p>
+      <ul>
+        {items.map((h) => (
+          <li class={`depth-${h.depth}`}>
+            <a href={`#${h.slug}`}>{h.text}</a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  )
+}
+
+<style>
+  .toc {
+    font-size: var(--text-xs);
+    line-height: 1.5;
+  }
+
+  .toc-title {
+    margin: 0 0 8px;
+    font-weight: 700;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .toc ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-left: 1px solid var(--border-subtle);
+  }
+
+  .toc li a {
+    display: block;
+    padding: 4px 0 4px 12px;
+    color: var(--muted);
+    border-left: 2px solid transparent;
+    margin-left: -1px;
+  }
+
+  .toc li.depth-3 a {
+    padding-left: 24px;
+  }
+
+  .toc li a:hover {
+    color: var(--accent);
+    text-decoration: none;
+  }
+
+  .toc li a.active {
+    color: var(--accent);
+    border-left-color: var(--accent);
+    font-weight: 600;
+  }
+</style>
+
+<script>
+  // スクロール位置に応じて現在のセクションをハイライト
+  const tocLinks = document.querySelectorAll<HTMLAnchorElement>('.toc a[href^="#"]');
+  if (tocLinks.length > 0) {
+    const map = new Map<Element, HTMLAnchorElement>();
+    for (const link of tocLinks) {
+      const id = decodeURIComponent(link.hash.slice(1));
+      const target = document.getElementById(id);
+      if (target) map.set(target, link);
+    }
+    let activeLink: HTMLAnchorElement | null = null;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            activeLink?.classList.remove('active');
+            activeLink = map.get(entry.target) ?? null;
+            activeLink?.classList.add('active');
+          }
+        }
+      },
+      { rootMargin: '-64px 0px -75% 0px' },
+    );
+    for (const el of map.keys()) observer.observe(el);
+  }
+</script>

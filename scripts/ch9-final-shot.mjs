@@ -1,0 +1,12 @@
+import { chromium } from 'playwright';
+const browser = await chromium.launch({ channel: 'msedge', headless: true });
+const page = await browser.newPage({ viewport: { width: 1280, height: 900 } });
+await page.goto('http://localhost:4321/build-your-own-3dgs/chapters/09/', { waitUntil: 'domcontentloaded' });
+const w = page.locator('[data-widget="ch9-garden"]');
+await w.scrollIntoViewIfNeeded();
+await page.waitForTimeout(2000);
+await w.getByRole('button', { name: '3', exact: true }).click();
+await page.waitForTimeout(600);
+await w.screenshot({ path: 'screenshots/widget-ch9-final.png' });
+await browser.close();
+console.log('done');

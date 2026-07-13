@@ -1,0 +1,49 @@
+---
+import { getCollection, render } from 'astro:content';
+import ChapterLayout from '../../../layouts/ChapterLayout.astro';
+import { publishedChapters } from '../../../data/chapters';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('chapters');
+  return publishedChapters.map((ch) => {
+    const en = entries.find((e) => e.data.lang === 'en' && e.data.chapter === ch.number);
+    const ja = entries.find((e) => e.data.lang === 'ja' && e.data.chapter === ch.number);
+    if (!en && !ja) {
+      throw new Error(`第${ch.number}章のコンテンツがありません。pnpm import:content を実行してください。`);
+    }
+    // en 翻訳があればそれを、なければ ja 本文をフォールバック表示する
+    return {
+      params: { chapter: ch.slug },
+      props: { entry: (en ?? ja)!, fallback: !en, meta: ch },
+    };
+  });
+}
+
+const { chapter } = Astro.params;
+const { entry, fallback, meta } = Astro.props;
+const { Content, headings } = await render(entry);
+
+const base = import.meta.env.BASE_URL.replace(/\/+$/, '');
+const jaPath = `${base}/chapters/${chapter}/`;
+const enPath = `${base}/en/chapters/${chapter}/`;
+// フォールバックページは実体が ja 本文なので canonical を ja へ向ける
+const canonicalPath = fallback ? jaPath : undefined;
+const alternates = [
+  { lang: 'ja' as const, path: jaPath },
+  { lang: 'en' as const, path: enPath },
+];
+---
+
+<ChapterLayout
+  lang="en"
+  slug={chapter}
+  chapterNumber={meta.number}
+  title={meta.title.en}
+  description={meta.description.en}
+  {headings}
+  {fallback}
+  {canonicalPath}
+  {alternates}
+>
+  <Content />
+</ChapterLayout>
