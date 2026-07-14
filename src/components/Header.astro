@@ -14,14 +14,7 @@ const repoUrl = 'https://github.com/kogum4/build-your-own-3dgs';
 
 <header class="site-header">
   <div class="header-inner">
-    <a class="brand" href={localizePath('/', lang)}>
-      <span class="brand-mark" aria-hidden="true">
-        <span class="splat splat-r"></span>
-        <span class="splat splat-g"></span>
-        <span class="splat splat-b"></span>
-      </span>
-      <span class="brand-text">Build Your Own <strong>3DGS</strong></span>
-    </a>
+    <a class="brand" href={localizePath('/', lang)}>Build Your Own 3DGS</a>
     <nav class="header-nav" aria-label="Site">
       <a href={`${localizePath('/', lang)}#chapters`}>{t('nav.chapters')}</a>
       <a href={repoUrl} target="_blank" rel="noopener">GitHub</a>
@@ -36,8 +29,8 @@ const repoUrl = 'https://github.com/kogum4/build-your-own-3dgs';
     top: 0;
     z-index: 50;
     height: var(--header-height);
-    background: rgba(255, 255, 255, 0.88);
-    backdrop-filter: blur(8px);
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(10px);
     border-bottom: 1px solid var(--border-subtle);
   }
 
@@ -46,81 +39,51 @@ const repoUrl = 'https://github.com/kogum4/build-your-own-3dgs';
     align-items: center;
     justify-content: space-between;
     gap: 16px;
-    max-width: 1360px;
+    max-width: 1280px;
     height: 100%;
     margin: 0 auto;
-    padding: 0 20px;
+    padding: 0 28px;
   }
 
   .brand {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
     color: var(--fg);
-    font-size: var(--text-base);
+    font-size: var(--text-sm);
+    font-weight: 700;
+    letter-spacing: -0.02em;
     white-space: nowrap;
   }
 
   .brand:hover {
     text-decoration: none;
-  }
-
-  .brand-mark {
-    position: relative;
-    width: 26px;
-    height: 26px;
-    flex: none;
-  }
-
-  .splat {
-    position: absolute;
-    width: 16px;
-    height: 16px;
-    border-radius: 50%;
-    filter: blur(3px);
-  }
-
-  .splat-r {
-    top: 0;
-    left: 5px;
-    background: radial-gradient(circle, rgba(255, 90, 90, 0.9), transparent 70%);
-  }
-
-  .splat-g {
-    bottom: 0;
-    left: 0;
-    background: radial-gradient(circle, rgba(80, 200, 120, 0.9), transparent 70%);
-  }
-
-  .splat-b {
-    bottom: 0;
-    right: 0;
-    background: radial-gradient(circle, rgba(90, 130, 255, 0.9), transparent 70%);
-  }
-
-  .brand-text strong {
-    font-weight: 700;
+    opacity: 0.7;
   }
 
   .header-nav {
     display: flex;
     align-items: center;
-    gap: 18px;
-    font-size: var(--text-sm);
+    gap: 24px;
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--muted);
   }
 
   .header-nav a {
-    color: var(--fg);
+    color: var(--muted);
     white-space: nowrap;
   }
 
+  .header-nav a:hover {
+    color: var(--fg);
+    text-decoration: none;
+  }
+
   @media (max-width: 640px) {
-    .brand-text {
-      font-size: var(--text-sm);
+    .header-inner {
+      padding: 0 20px;
     }
 
     .header-nav {
-      gap: 12px;
+      gap: 14px;
     }
   }
 </style>

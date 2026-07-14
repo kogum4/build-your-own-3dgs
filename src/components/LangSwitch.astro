@@ -31,15 +31,16 @@ const label = other === 'ja' ? '日本語' : 'English';
     gap: 6px;
     padding: 6px 12px;
     border: 1px solid var(--border);
-    border-radius: 999px;
-    color: var(--fg);
-    font-size: var(--text-sm);
+    color: var(--muted);
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
     line-height: 1;
     background: var(--bg);
   }
 
   .lang-switch:hover {
-    background: var(--bg-subtle);
+    border-color: var(--border-ink);
+    color: var(--fg);
     text-decoration: none;
   }
 </style>

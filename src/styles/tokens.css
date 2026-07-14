@@ -1,62 +1,67 @@
-/* デザイントークン — プロトタイプ (GitHubライク配色) を踏襲しつつ公開用に整理 */
+/* デザイントークン — "Crisp": 白×黒のタイポグラフィ主体、RGB 3ドットをマイクロアクセントに */
 :root {
   /* カラー */
   --bg: #ffffff;
-  --bg-subtle: #f6f8fa;
-  --fg: #1f2328;
-  --muted: #57606a;
-  --faint: #8b949e;
-  --border: #d0d7de;
-  --border-subtle: #e1e4e8;
+  --bg-subtle: #f6f6f5;
+  --fg: #111213;
+  --muted: #6a6e73;
+  --faint: #a3a7ac;
+  --border: #d9dadb;
+  --border-subtle: #e8e9ea;
+  /* 構造を区切る主罫線は黒 */
+  --border-ink: #111213;
 
-  --accent: #0969da;
-  --accent-strong: #0550ae;
-  --accent-soft: #ddf4ff;
+  /* アクセントは黒。色は 3DGS の RGB 3ドットだけが持つ */
+  --accent: #111213;
+  --accent-strong: #000000;
+  --accent-soft: #f6f6f5;
 
-  --code-bg: #f6f8fa;
-  --output-bg: #f0f9ff;
-  --output-border: #cfe8ff;
+  --splat-r: #e5484d;
+  --splat-g: #2f9e68;
+  --splat-b: #3465d9;
 
-  --ok: #1a7f37;
-  --ok-soft: #dafbe1;
+  --code-bg: #f6f6f5;
+  --output-bg: #ffffff;
+  --output-border: #e8e9ea;
+
+  --ok: #2f9e68;
+  --ok-soft: #e9f6ef;
   --warn: #9a6700;
   --warn-soft: #fff8c5;
   --err: #cf222e;
   --err-soft: #ffebe9;
 
-  /* 3DGSらしいアクセントグラデーション (ヒーロー装飾用) */
-  --splat-red: rgba(255, 99, 99, 0.35);
-  --splat-green: rgba(99, 214, 130, 0.32);
-  --splat-blue: rgba(88, 133, 255, 0.35);
-
   /* タイポグラフィ */
   --font-sans:
-    system-ui, -apple-system, 'Segoe UI', 'Hiragino Sans', 'Yu Gothic UI', 'Noto Sans JP',
-    sans-serif;
-  --font-mono: ui-monospace, SFMono-Regular, 'Cascadia Mono', Consolas, Menlo, monospace;
+    'Inter Variable', 'Noto Sans JP Variable', system-ui, -apple-system, 'Segoe UI',
+    'Hiragino Sans', 'Yu Gothic UI', sans-serif;
+  --font-mono:
+    'JetBrains Mono Variable', ui-monospace, SFMono-Regular, 'Cascadia Mono', Consolas, Menlo,
+    monospace;
 
   --text-xs: 0.75rem;
   --text-sm: 0.875rem;
-  --text-base: 1rem;
+  --text-base: 0.96875rem; /* 15.5px */
   --text-lg: 1.125rem;
-  --text-xl: 1.375rem;
+  --text-xl: 1.4375rem;
   --text-2xl: 1.75rem;
-  --text-3xl: 2.25rem;
+  --text-3xl: 2.375rem;
 
-  --leading-body: 1.8;
+  --leading-body: 2;
   --leading-tight: 1.35;
 
   /* レイアウト */
-  --content-width: 760px;
-  --sidebar-width: 264px;
-  --toc-width: 220px;
-  --header-height: 56px;
+  --content-width: 720px;
+  --sidebar-width: 240px;
+  --toc-width: 200px;
+  --header-height: 60px;
 
-  --radius-sm: 6px;
-  --radius-md: 10px;
-  --radius-lg: 16px;
+  /* 角丸・影は使わない (直線と罫線で構成する) */
+  --radius-sm: 0;
+  --radius-md: 0;
+  --radius-lg: 0;
 
-  --shadow-card: 0 1px 3px rgba(31, 35, 40, 0.06), 0 1px 2px rgba(31, 35, 40, 0.04);
-  --shadow-card-hover: 0 6px 18px rgba(31, 35, 40, 0.1), 0 2px 6px rgba(31, 35, 40, 0.06);
-  --shadow-popover: 0 8px 24px rgba(31, 35, 40, 0.12);
+  --shadow-card: none;
+  --shadow-card-hover: none;
+  --shadow-popover: 0 4px 16px rgba(17, 18, 19, 0.08);
 }

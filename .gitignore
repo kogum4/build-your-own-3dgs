@@ -22,3 +22,6 @@ Thumbs.db
 train-ch9.log
 train-ch9.err.log
 screenshots/
+
+# デザイン検討用モックアップ (ローカル作業ファイル)
+design-mockups/

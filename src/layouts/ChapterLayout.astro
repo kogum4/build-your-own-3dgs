@@ -37,7 +37,10 @@ const pageTitle = `${t('chapter.label', { n: chapterNumber })}: ${title} | Build
 
     <main id="main" class="shell-main" data-chapter={slug}>
       {fallback && <TranslationBanner {lang} />}
-      <p class="chapter-eyebrow">{t('chapter.label', { n: chapterNumber })}</p>
+      <p class="chapter-eyebrow">
+        <span class="tri-dots" aria-hidden="true"><span /><span /><span /></span>
+        {t('chapter.label', { n: chapterNumber })}
+      </p>
       <h1 class="chapter-title">{title}</h1>
       <article class="chapter-prose">
         <slot />
@@ -60,10 +63,10 @@ const pageTitle = `${t('chapter.label', { n: chapterNumber })}: ${title} | Build
     display: grid;
     grid-template-columns: var(--sidebar-width) minmax(0, var(--content-width)) var(--toc-width);
     justify-content: center;
-    gap: 40px;
-    max-width: 1360px;
+    gap: 56px;
+    max-width: 1280px;
     margin: 0 auto;
-    padding: 32px 20px 64px;
+    padding: 52px 28px 80px;
   }
 
   .shell-sidebar,
@@ -77,17 +80,26 @@ const pageTitle = `${t('chapter.label', { n: chapterNumber })}: ${title} | Build
   }
 
   .chapter-eyebrow {
-    margin: 0 0 4px;
-    color: var(--accent);
-    font-size: var(--text-sm);
-    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0 0 12px;
+    color: var(--muted);
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
     letter-spacing: 0.04em;
   }
 
+  .chapter-eyebrow .tri-dots span {
+    width: 7px;
+    height: 7px;
+  }
+
   .chapter-title {
-    margin: 0 0 28px;
+    margin: 0 0 44px;
     font-size: var(--text-3xl);
     font-weight: 800;
+    letter-spacing: -0.04em;
   }
 
   @media (max-width: 1200px) {

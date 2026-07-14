@@ -15,6 +15,7 @@ const t = useTranslations(lang);
 <nav class="sidebar" aria-label={t('nav.chapters')}>
   <details class="sidebar-details">
     <summary class="sidebar-summary">{t('nav.chapters')}</summary>
+    <p class="rail-label" aria-hidden="true">Chapters</p>
     <ol class="chapter-list">
       {
         chapterList.map((ch) =>
@@ -25,18 +26,15 @@ const t = useTranslations(lang);
                 href={localizePath(`/chapters/${ch.slug}/`, lang)}
                 aria-current={ch.slug === currentSlug ? 'page' : undefined}
               >
-                <span class="ch-num">{ch.number}</span>
+                <span class="ch-num">{ch.slug}</span>
                 <span class="ch-title">{ch.title[lang]}</span>
               </a>
             </li>
           ) : (
             <li>
-              <span class="chapter-link coming-soon">
-                <span class="ch-num">{ch.number}</span>
-                <span class="ch-title">
-                  {ch.title[lang]}
-                  <span class="soon-badge">{t('chapter.comingSoon')}</span>
-                </span>
+              <span class="chapter-link coming-soon" title={t('chapter.comingSoon')}>
+                <span class="ch-num">{ch.slug}</span>
+                <span class="ch-title">{ch.title[lang]}</span>
               </span>
             </li>
           ),
@@ -48,11 +46,20 @@ const t = useTranslations(lang);
 
 <style>
   .sidebar {
-    font-size: var(--text-sm);
+    font-size: 0.8125rem;
   }
 
   .sidebar-summary {
     display: none;
+  }
+
+  .rail-label {
+    margin: 0 0 14px;
+    font-family: var(--font-mono);
+    font-size: 0.625rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--faint);
   }
 
   .chapter-list {
@@ -64,56 +71,41 @@ const t = useTranslations(lang);
   .chapter-link {
     display: flex;
     align-items: baseline;
-    gap: 10px;
-    padding: 7px 12px;
-    border-radius: var(--radius-sm);
-    color: var(--fg);
-    line-height: 1.4;
+    gap: 12px;
+    padding: 5px 0;
+    color: var(--muted);
+    line-height: 1.55;
   }
 
   .chapter-link:hover {
-    background: var(--bg-subtle);
+    color: var(--fg);
     text-decoration: none;
   }
 
   .chapter-link.current {
-    background: var(--accent-soft);
-    color: var(--accent-strong);
-    font-weight: 600;
+    color: var(--fg);
+    font-weight: 700;
   }
 
   .ch-num {
     flex: none;
-    width: 1.6em;
     color: var(--faint);
+    font-family: var(--font-mono);
     font-variant-numeric: tabular-nums;
-    font-size: var(--text-xs);
-    text-align: right;
+    font-size: 0.6875rem;
   }
 
   .chapter-link.current .ch-num {
-    color: var(--accent-strong);
+    color: var(--fg);
   }
 
   .coming-soon {
-    color: var(--faint);
+    opacity: 0.4;
     cursor: default;
   }
 
   .coming-soon:hover {
-    background: none;
-  }
-
-  .soon-badge {
-    display: inline-block;
-    margin-left: 6px;
-    padding: 1px 7px;
-    border: 1px solid var(--border);
-    border-radius: 999px;
-    font-size: 0.65rem;
-    letter-spacing: 0.03em;
-    color: var(--faint);
-    white-space: nowrap;
+    color: var(--muted);
   }
 
   /* デスクトップでは details を常時開いた見た目に */
@@ -130,8 +122,7 @@ const t = useTranslations(lang);
     }
 
     .sidebar-details {
-      border: 1px solid var(--border);
-      border-radius: var(--radius-md);
+      border: 1px solid var(--border-ink);
       background: var(--bg);
     }
 
@@ -139,11 +130,19 @@ const t = useTranslations(lang);
       padding-bottom: 8px;
     }
 
+    .sidebar-details .rail-label {
+      display: none;
+    }
+
     .sidebar-summary {
       display: block;
       padding: 10px 14px;
       cursor: pointer;
       font-weight: 600;
+    }
+
+    .chapter-list {
+      padding: 0 14px;
     }
   }
 </style>
