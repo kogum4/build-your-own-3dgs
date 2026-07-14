@@ -9,6 +9,12 @@ interface Props {
 const { lang } = Astro.props;
 const t = useTranslations(lang);
 const repoUrl = 'https://github.com/kogum4/build-your-own-3dgs';
+const ccUrl =
+  lang === 'ja'
+    ? 'https://creativecommons.org/licenses/by/4.0/deed.ja'
+    : 'https://creativecommons.org/licenses/by/4.0/';
+const mitUrl = `${repoUrl}/blob/main/LICENSE`;
+const year = new Date().getFullYear();
 ---
 
 <footer class="site-footer">
@@ -17,8 +23,13 @@ const repoUrl = 'https://github.com/kogum4/build-your-own-3dgs';
       <strong>Build Your Own 3D Gaussian Splatting</strong> — {t('site.tagline')}
     </p>
     <p class="footer-meta">
-      {t('footer.builtWith')}
-      <a href={repoUrl} target="_blank" rel="noopener">GitHub</a>
+      © {year} kogum4
+      <span class="sep" aria-hidden="true">·</span>
+      {t('footer.textLicense')}: <a href={ccUrl} target="_blank" rel="noopener license">CC BY 4.0</a>
+      <span class="sep" aria-hidden="true">·</span>
+      {t('footer.codeLicense')}: <a href={mitUrl} target="_blank" rel="noopener license">MIT</a>
+      <span class="sep" aria-hidden="true">·</span>
+      {t('footer.sourceOn')} <a href={repoUrl} target="_blank" rel="noopener">GitHub</a>
     </p>
   </div>
 </footer>
@@ -40,5 +51,10 @@ const repoUrl = 'https://github.com/kogum4/build-your-own-3dgs';
 
   .footer-inner p {
     margin: 4px 0;
+  }
+
+  .sep {
+    margin: 0 6px;
+    color: var(--faint);
   }
 </style>
