@@ -24,6 +24,14 @@
   --output-bg: #ffffff;
   --output-border: #e8e9ea;
 
+  /* コードエディタのダークサーフェス (Nord に合わせた穏やかな青灰色)
+     編集・実行できる場所だけを暗くして、白いページの中で際立たせる */
+  --code-dark-bg: #2e3440;
+  --code-dark-raise: #3b4252;
+  --code-dark-border: #4c566a;
+  --code-dark-fg: #d8dee9;
+  --code-dark-muted: #8892a8;
+
   --ok: #2f9e68;
   --ok-soft: #e9f6ef;
   --warn: #9a6700;

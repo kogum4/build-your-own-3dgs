@@ -1,25 +1,44 @@
 /* クライアントランタイム (実行ブロック・ステータス表示・ウィジェット共通) のスタイル */
 
 /* --- 実行可能コードブロック --- */
+/* 編集・実行できる場所はダークサーフェス。結果 (出力) は白のまま */
 .exec-widget {
   margin: 2.2em 0;
-  border: 1px solid var(--border-ink);
-  background: #fff;
+  border: 1px solid var(--code-dark-bg);
+  background: var(--code-dark-bg);
   overflow: hidden;
 }
 
 .exec-file-tab {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
   padding: 7px 16px;
-  background: var(--bg-subtle);
-  border-bottom: 1px solid var(--border-ink);
-  color: var(--fg);
+  background: var(--code-dark-raise);
+  border-bottom: 1px solid var(--code-dark-border);
+  color: var(--code-dark-fg);
   font-size: var(--text-xs);
   font-weight: 500;
   font-family: var(--font-mono);
 }
 
+/* 「編集できる」ことを示すヒント */
+.exec-file-tab::after {
+  content: '✎ 編集できます';
+  color: var(--code-dark-muted);
+  font-size: 0.6875rem;
+  font-weight: 400;
+  white-space: nowrap;
+}
+
+:root[lang='en'] .exec-file-tab::after {
+  content: '✎ editable';
+}
+
 .exec-editor {
-  border-bottom: 1px solid var(--border-subtle);
+  background: var(--code-dark-bg);
+  border-bottom: 1px solid var(--code-dark-border);
 }
 
 .exec-toolbar {
@@ -27,14 +46,14 @@
   align-items: center;
   gap: 14px;
   padding: 10px 14px;
-  background: #fff;
+  background: var(--code-dark-bg);
 }
 
 .exec-run {
   padding: 6px 20px;
   border: none;
-  background: var(--fg);
-  color: #fff;
+  background: var(--code-dark-fg);
+  color: var(--code-dark-bg);
   font-family: var(--font-mono);
   font-size: var(--text-xs);
   font-weight: 600;
@@ -43,7 +62,7 @@
 }
 
 .exec-run:hover:not(:disabled) {
-  opacity: 0.82;
+  background: #fff;
 }
 
 .exec-run:disabled {
@@ -55,27 +74,27 @@
   padding: 6px 4px;
   border: none;
   background: none;
-  color: var(--faint);
+  color: var(--code-dark-muted);
   font-family: var(--font-mono);
   font-size: 0.6875rem;
   cursor: pointer;
 }
 
 .exec-reset:hover {
-  color: var(--fg);
+  color: var(--code-dark-fg);
 }
 
 .exec-edited {
   padding: 2px 8px;
-  border: 1px solid var(--warn);
-  color: var(--warn);
+  border: 1px solid #ebcb8b;
+  color: #ebcb8b;
   font-size: 0.6875rem;
   font-family: var(--font-mono);
 }
 
 .exec-time {
   margin-left: auto;
-  color: var(--faint);
+  color: var(--code-dark-muted);
   font-size: var(--text-xs);
   font-family: var(--font-mono);
   font-variant-numeric: tabular-nums;

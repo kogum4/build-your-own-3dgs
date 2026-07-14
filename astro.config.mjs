@@ -29,7 +29,9 @@ export default defineConfig({
     remarkPlugins: [remarkMath, remarkDirective, remarkWidgetDirective],
     rehypePlugins: [[rehypeKatex, { strict: false }], rehypeFigureCaption],
     shikiConfig: {
-      theme: 'github-light',
+      // 通常のコードブロックはダーク、期待出力ブロックはライトを CSS 側で選択する
+      themes: { light: 'github-light', dark: 'nord' },
+      defaultColor: 'light',
       transformers: [shikiExecTransformer()],
     },
     smartypants: false,

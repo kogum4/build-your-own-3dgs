@@ -108,6 +108,13 @@
   overflow-x: auto;
 }
 
+/* 期待出力以外のコードブロックはダークテーマ (Shiki デュアルテーマの dark 側を有効化) */
+.chapter-prose pre.astro-code:not([data-sample-output]),
+.chapter-prose pre.astro-code:not([data-sample-output]) span {
+  color: var(--shiki-dark) !important;
+  background-color: var(--shiki-dark-bg) !important;
+}
+
 /* ファイル名タブ */
 .chapter-prose pre[data-file] {
   padding-top: 52px;
@@ -120,9 +127,9 @@
   left: 0;
   right: 0;
   padding: 7px 16px;
-  background: var(--bg-subtle);
-  border-bottom: 1px solid var(--border-ink);
-  color: var(--fg);
+  background: var(--code-dark-raise);
+  border-bottom: 1px solid var(--code-dark-border);
+  color: var(--code-dark-fg);
   font-size: var(--text-xs);
   font-weight: 500;
   font-family: var(--font-mono);
