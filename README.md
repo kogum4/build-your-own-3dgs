@@ -1,49 +1,52 @@
 # Build Your Own 3D Gaussian Splatting
 
-**NumPyだけで、ゼロから作る3D Gaussian Splatting** — インタラクティブWeb教材
+**Build 3D Gaussian Splatting from scratch, with nothing but NumPy** — an interactive web textbook
 
-https://kogum4.github.io/build-your-own-3dgs/
+**📖 Read it here: https://kogum4.github.io/build-your-own-3dgs/** ([日本語](https://kogum4.github.io/build-your-own-3dgs/) / [English](https://kogum4.github.io/build-your-own-3dgs/en/))
 
-PyTorchもCUDAも使わず、PythonとNumPyだけで3D Gaussian Splattingをスクラッチ実装する教材です。ブラウザ上でコードを編集・実行しながら（Pyodide）、数式と実装の対応を一歩ずつ学べます。
+日本語版のREADMEは [README.ja.md](README.ja.md) にあります。
 
-- 📖 全16章構成（現在 第1〜9章を公開、以降は順次公開）
-- ▶️ すべてのコードブロックがブラウザ内で実行・編集可能
-- 🎛️ 各章にインタラクティブデモ（共分散楕円、計算グラフ、ライブ学習、自由視点レンダリング等）
-- 🌐 日本語 / English（英訳は順次公開）
+No PyTorch. No CUDA. This textbook implements 3D Gaussian Splatting from scratch with Python and NumPy — from an autograd engine to a rasterizer. Every code block runs and can be edited right in your browser (via Pyodide), so you can follow the math and the implementation one step at a time.
 
-## 開発
+- 📖 16 chapters planned (chapters 1–9 available now, more on the way)
+- ▶️ Every code block is executable and editable in the browser
+- 🎛️ Interactive demos in every chapter (covariance ellipse explorer, computation-graph backprop, live training, novel-view rendering of a trained scene, and more)
+- 🌐 Japanese / English (translations rolling out; Chapter 1 is fully translated)
+
+## Feedback
+
+Found a mistake in the text, a bug in the code, or have a suggestion? Please [open an issue](https://github.com/kogum4/build-your-own-3dgs/issues) — feedback on the content is very welcome, in English or Japanese.
+
+## Development
 
 ```bash
 pnpm install
-pnpm dev        # 開発サーバー
-pnpm build      # 本番ビルド (dist/)
-pnpm preview    # base path 込みのプレビュー (GitHub Pages 相当)
-pnpm check      # 型チェック
+pnpm dev        # dev server
+pnpm build      # production build (dist/)
+pnpm preview    # preview with the base path (mirrors GitHub Pages)
+pnpm check      # type check
 ```
 
-### コンテンツの取り込み
+### Importing content
 
-章コンテンツは教材ソース（ローカルのワークスペース）から変換スクリプトで取り込みます:
+Chapter content is converted from the source workspace (local, not part of this repo) by an import script:
 
 ```bash
-pnpm import:content                  # 設定済みの全章
-pnpm import:content -- --chapter 03  # 単章
+pnpm import:content                  # all configured chapters
+pnpm import:content -- --chapter 03  # a single chapter
 ```
 
-変換の詳細・新しい章を公開する手順は [docs/runtime-contract.md](docs/runtime-contract.md) を参照してください。
+See [docs/runtime-contract.md](docs/runtime-contract.md) for the conversion details and the checklist for publishing a new chapter.
 
-## 構成
+## Architecture
 
-- **Astro 5** — 静的サイト生成、i18n ルーティング
-- **remark-math + KaTeX** — 数式（ビルド時レンダリング）
-- **Shiki + 自作 transformer** — コードハイライトと実行可能ブロックのマーキング
-- **CodeMirror 6 + Pyodide (Web Worker)** — ブラウザ内 Python 実行環境
-- **素のTS Canvas/SVGウィジェット** — 章別インタラクティブデモ
+- **Astro 5** — static site generation, i18n routing
+- **remark-math + KaTeX** — math rendered at build time
+- **Shiki + custom transformer** — syntax highlighting and executable-block markup
+- **CodeMirror 6 + Pyodide (Web Worker)** — in-browser Python environment
+- **Vanilla TS Canvas/SVG widgets** — per-chapter interactive demos
 
-## デプロイ
+## License
 
-`main` ブランチへの push で GitHub Actions が自動ビルドし GitHub Pages へデプロイします。
-
-## ライセンス
-
-教材テキスト・コードともに、リポジトリ所有者に帰属します。
+- **Code** (site source, widgets, and the textbook's Python code) is licensed under the [MIT License](LICENSE).
+- **Textbook text and figures** are licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
